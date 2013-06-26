@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/dark_black">
+    <!--顶栏-->
+    <RelativeLayout
+        android:id="@+id/top_bar_frame"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_menu">
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="8dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_back"
+            android:background="@drawable/btn_bg"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="6dp"
+            android:text="城市管理"
+            android:textColor="@color/gray"
+            android:textSize="20sp"/>
+        <ImageButton
+            android:id="@+id/edit_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_city_manager_edit"
+            android:background="@drawable/btn_bg"/>
+    </RelativeLayout>
+    <GridView
+        style="@style/gridview"
+        android:id="@+id/city_gridview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="6dp"
+        android:layout_below="@+id/top_bar_frame"
+        android:verticalSpacing="10dp"
+        android:numColumns="3"/>
+
+</RelativeLayout>

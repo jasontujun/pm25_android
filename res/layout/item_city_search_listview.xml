@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg">
+    <RelativeLayout
+        android:id="@+id/bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_city_selected">
+        <!--城市名-->
+        <TextView
+            android:id="@+id/city_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="乌鲁木齐"
+            android:textColor="@color/gray"
+            android:textSize="18sp"
+            android:singleLine="true"/>
+    </RelativeLayout>
+</RelativeLayout>
