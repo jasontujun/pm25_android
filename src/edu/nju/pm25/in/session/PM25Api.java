@@ -48,7 +48,10 @@ public class PM25Api {
             result.setCity(jsonObject.getString("area"));
             result.setAqi(String.valueOf(jsonObject.get("aqi")));
             result.setQuality(jsonObject.getString("quality"));
-            result.setTime_point(jsonObject.getString("time_point"));
+            String time = jsonObject.getString("time_point");
+            time = time.replace("T", " ");
+            time = time.replace("Z", " ");
+            result.setTime_point(time);
             result.setPm25(String.valueOf(jsonObject.get("pm2_5")));
             result.setPm10(String.valueOf(jsonObject.get("pm10")));
             result.setCo(String.valueOf(jsonObject.get("co")));
@@ -92,7 +95,10 @@ public class PM25Api {
                 station.setPosition_name(jsonObject.getString("position_name"));
                 station.setAqi(String.valueOf(jsonObject.get("aqi")));
                 station.setQuality(jsonObject.getString("quality"));
-                station.setTime_point(jsonObject.getString("time_point"));
+                String time = jsonObject.getString("time_point");
+                time = time.replace("T", " ");
+                time = time.replace("Z", " ");
+                station.setTime_point(time);
                 stations.add(station);
             }
             return stations;
@@ -127,7 +133,10 @@ public class PM25Api {
             result.setName(jsonObject.getString("position_name"));
             result.setAqi(String.valueOf(jsonObject.get("aqi")));
             result.setQuality(jsonObject.getString("quality"));
-            result.setTime_point(jsonObject.getString("time_point"));
+            String time = jsonObject.getString("time_point");
+            time = time.replace("T", " ");
+            time = time.replace("Z", " ");
+            result.setTime_point(time);
             result.setPm25(String.valueOf(jsonObject.get("pm2_5")));
             result.setPm10(String.valueOf(jsonObject.get("pm10")));
             result.setCo(String.valueOf(jsonObject.get("co")));

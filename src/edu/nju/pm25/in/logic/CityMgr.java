@@ -71,6 +71,8 @@ public class CityMgr {
         // 设置页码，显示第一个城市
         if (mFavoriteCitySource.size() > 0) {
             mGlobalStateSource.setSelectCityIndex(0);
+        } else {
+            mGlobalStateSource.setSelectCityIndex(-1);
         }
     }
 

@@ -134,11 +134,13 @@ public class CityInfoActivity extends Activity
 
     private void startRefreshTask(String cityName, boolean hasTip) {
         cancelRefreshTask();
+        mIsRefreshing = true;
         mRefreshDataTask = new RefreshDataTask(cityName, hasTip);
         mRefreshDataTask.execute(null);
     }
 
     private void cancelRefreshTask() {
+        mIsRefreshing = false;
         if (mRefreshDataTask != null) {
             mRefreshDataTask.cancel(true);
             mRefreshDataTask = null;
@@ -154,16 +156,16 @@ public class CityInfoActivity extends Activity
         mCityViewFlow.setOnViewSwitchListener(new ViewFlow.ViewSwitchListener() {
             @Override
             public void onSwitched(View view, int position) {
-                if (mIsRefreshing) {
+                if (mIsRefreshing)
                     cancelRefreshTask();
-                }
+
                 // 将当前选择的城市序号存入SharePreference，并通知监听者，刷新界面
                 mGlobalStateSource.setSelectCityIndex(position);
 
                 // 判断是否要刷新(如果间隔时间过大，则自动刷新)
                 CityDetailInfo cityDetailInfo = mFavoriteCitySource.get(position);
-                long curTime = System.currentTimeMillis();
-                if (curTime - cityDetailInfo.getLocalRefreshTime() > CityMgr.REFRESH_INTERVAL)
+                if (System.currentTimeMillis() - cityDetailInfo.getLocalRefreshTime()
+                        > CityMgr.REFRESH_INTERVAL)
                     startRefreshTask(cityDetailInfo.getCity(), false);
             }
         });
@@ -202,6 +204,14 @@ public class CityInfoActivity extends Activity
             // 如果当前viewflow不是显示对应的页码，则滑动到对应页码
             if (mCityViewFlow.getSelectedItemPosition() != selectedIndex) {
                 mCityViewFlow.setSelection(selectedIndex);
+            } else {
+                // 判断是否要刷新(如果间隔时间过大，则自动刷新)
+                if (System.currentTimeMillis() - mCurrentCity.getLocalRefreshTime()
+                        > CityMgr.REFRESH_INTERVAL) {
+                    if (mIsRefreshing)
+                        cancelRefreshTask();
+                    startRefreshTask(cityDetailInfo.getCity(), false);
+                }
             }
         }
     }
@@ -210,9 +220,8 @@ public class CityInfoActivity extends Activity
     protected void onStop() {
         super.onStop();
         // 停止后台的更新任务AsyncTask
-        if (mIsRefreshing) {
+        if (mIsRefreshing)
             cancelRefreshTask();
-        }
     }
 
     @Override
@@ -293,7 +302,6 @@ public class CityInfoActivity extends Activity
 
         @Override
         protected void onPreExecute() {
-            mIsRefreshing = true;
             Animation rotate = AnimationUtils.loadAnimation(CityInfoActivity.this, R.anim.rotate);
             mRefreshBtn.startAnimation(rotate);
             if (mHasTips)
@@ -326,8 +334,6 @@ public class CityInfoActivity extends Activity
 
             if (mHasTips)
                 Toast.makeText(CityInfoActivity.this, "您取消了更新~", Toast.LENGTH_SHORT).show();
-
-            mIsRefreshing = false;
         }
     }
 }
