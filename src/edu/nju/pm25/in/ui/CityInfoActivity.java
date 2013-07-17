@@ -59,7 +59,6 @@ public class CityInfoActivity extends Activity
         super.onCreate(savedInstanceState);
 
         // 初始化系统相关组件
-        SystemMgr.getInstance().preInit(getApplicationContext());
         SystemMgr.getInstance().initSystem(getApplicationContext());
 
         // 初始化数据源

@@ -27,16 +27,26 @@ public class SystemMgr {
 
     private SystemMgr() {}
 
-
     public static final int DIR_DATA_IMG = 20;
     public static final int DIR_DATA_SPEECH = 21;
 
+    /**
+     * 初始化系统。
+     * @param context
+     */
+    public void initSystem(Context context) {
+        preInit(context);
+        clearSystem();
+        initFileMgr();
+        initDB(context);
+        initDataSources(context);
+    }
 
     /**
      * 在第一个Activity加载时执行
      * @param context
      */
-    public void preInit(Context context) {
+    private void preInit(Context context) {
         // 初始化文件管理器
         XFileMgr fileMgr = XAndroidFileMgr.getInstance();
         fileMgr.setRootName("pm25");
@@ -47,19 +57,6 @@ public class SystemMgr {
         // 初始化手机功能管理器
 //        XScreen screen = new XAndroidScreen(context);
 //        mMobileMgr = new XAndroidMobileMgr(this, screen.getScreenWidth(), screen.getScreenHeight());
-    }
-
-
-    /**
-     * 初始化系统。
-     * @param context
-     */
-    public void initSystem(Context context) {
-
-        clearSystem();
-        initFileMgr();
-        initDB(context);
-        initDataSources(context);
     }
 
     private void initFileMgr() {
